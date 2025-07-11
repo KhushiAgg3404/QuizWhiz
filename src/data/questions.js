@@ -3,7 +3,7 @@ export const sampleQuestions = [
     id: 1,
     question: "What will be the value of x in the equation: 3x + 4 = 19?",
     options: ["4", "5", "6", "7"],
-    correctAnswer: 2,
+    correctAnswer: 1,
     explanation: "3x + 4 = 19 ⇒ 3x = 15 ⇒ x = 5.",
   },
   {
