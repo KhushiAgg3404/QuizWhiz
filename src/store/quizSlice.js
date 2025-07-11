@@ -69,9 +69,11 @@ const quizSlice = createSlice({
         },
 
         nextQuestion: (state) => {
-            state.showExplanation = false;
             if (state.currentQuestionIndex < state.questions.length - 1) {
                 state.currentQuestionIndex += 1;
+                const currentId = state.questions[state.currentQuestionIndex].id;
+                const answered = state.answers.find((a) => a.questionId === currentId);
+                state.showExplanation = !!answered;
             } else {
                 state.isQuizCompleted = true;
                 state.isTimerActive = false;
@@ -81,27 +83,20 @@ const quizSlice = createSlice({
         previousQuestion: (state) => {
             if (state.currentQuestionIndex > 0) {
                 state.currentQuestionIndex -= 1;
-
-                const currentQuestionId = state.questions[state.currentQuestionIndex].id;
-                state.answers = state.answers.filter(
-                    (answer) => answer.questionId !== currentQuestionId
-                );
-
-                state.showExplanation = false;
-
-                // Recalculate score
-                state.score = state.answers.filter((answer) => answer.isCorrect).length;
+                const currentId = state.questions[state.currentQuestionIndex].id;
+                const answered = state.answers.find((a) => a.questionId === currentId);
+                state.showExplanation = !!answered;
             }
         },
 
-        resetQuiz:(state)=>{
-            state.currentQuestionsIndex=0;
-            state.answers=[];
-            state.isQuizCompleted=false;
-            state.score=0;
-            state.timeLeft=300;
-            state.isTimerActive=false;
-            state.showExplanation=false;
+        resetQuiz: (state) => {
+            state.currentQuestionsIndex = 0;
+            state.answers = [];
+            state.isQuizCompleted = false;
+            state.score = 0;
+            state.timeLeft = 300;
+            state.isTimerActive = false;
+            state.showExplanation = false;
         }
     },
 });
