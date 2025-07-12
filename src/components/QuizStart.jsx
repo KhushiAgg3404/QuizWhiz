@@ -24,7 +24,7 @@ function QuizStart () {
                     </p>
                 </div>
                 {/* cards */}
-                <div className='grid grid-cols-3 gap-6 mb-8'>
+                <div className='md:grid md:grid-cols-3 md: gap-6 space-y-2 mb-8'>
                     <div className='bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl '>
                         <div className='flex items-center justify-center mb-4'>
                             <BookOpen className='w-8 h-8 text-blue' />
