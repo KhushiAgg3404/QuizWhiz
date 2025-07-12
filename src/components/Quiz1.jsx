@@ -6,7 +6,7 @@ import Questions from './Questions'
 import Result from './Result'
 import { useDispatch, useSelector } from 'react-redux'
 import { sampleQuestions } from '../data/questions'
-import { setQuestions } from '../store/quizSlice'
+import { setQuestions, decrementTimer } from '../store/quizSlice'
 
 function Quiz1() {
   const dispatch = useDispatch();
@@ -22,7 +22,8 @@ function Quiz1() {
     currentQuestionIndex,
     isQuizCompleted,
     isTimerActive,
-    answers
+    answers,
+    timeLeft,
   } = useSelector((state) => state.quiz);
 
   // Scroll to quiz content when quiz starts
@@ -31,6 +32,17 @@ function Quiz1() {
       topRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   }, [isTimerActive]);
+
+  // Timer logic — tick every second while active
+  useEffect(() => {
+    if (!isTimerActive) return;
+
+    const interval = setInterval(() => {
+      dispatch(decrementTimer());
+    }, 1000);
+
+    return () => clearInterval(interval); // Cleanup on unmount
+  }, [dispatch, isTimerActive]);
 
   // Loading state
   if (questions.length === 0) {
@@ -44,8 +56,8 @@ function Quiz1() {
     );
   }
 
-  // Quiz complete
-  if (isQuizCompleted) {
+  // Quiz complete or timer ended
+  if (isQuizCompleted || timeLeft === 0) {
     return (
       <div className='min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 py-8 px-4'>
         <Result />
@@ -53,7 +65,7 @@ function Quiz1() {
     );
   }
 
-  // Quiz not started
+  // Quiz not started yet
   if (!isTimerActive && answers.length === 0) {
     return (
       <div className='min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 py-8 px-4'>
