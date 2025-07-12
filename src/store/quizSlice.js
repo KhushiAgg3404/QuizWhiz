@@ -68,6 +68,7 @@ const quizSlice = createSlice({
             }
         },
 
+
         nextQuestion: (state) => {
             if (state.currentQuestionIndex < state.questions.length - 1) {
                 state.currentQuestionIndex += 1;
