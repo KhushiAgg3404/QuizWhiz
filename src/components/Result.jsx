@@ -30,7 +30,7 @@ const Result = () => {
                     <h1 className='text-4xl font-bold text-gray-800'>Quiz Complete!</h1>
                 </div>
                 {/* cards */}
-                <div className='md: grid md:grid-cols-3 md:gap-6 mb-8'>
+                <div className='md: grid md:grid-cols-3 md:gap-6 space-y-2 mb-8'>
                     <div className='bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl '>
                         <div className='flex items-center justify-center mb-4'>
                             <Target className='w-8 h-8 text-blue-600' />
