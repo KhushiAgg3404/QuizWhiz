@@ -11,6 +11,9 @@ function Questions() {
   const currentAnswer = answers.find((answer) => answer.questionId === currentQuestion.id);
 
   const handleOptionClick = (optionIndex) => {
+    // Prevent changing answer if already selected
+    if (currentAnswer) return;
+
     dispatch(
       answerQuestions({
         questionId: currentQuestion.id,
@@ -50,8 +53,10 @@ function Questions() {
                 } else {
                   buttonClass += `border-gray-300 bg-gray-50 text-gray-600`;
                 }
-              } else {
+              } else if (!currentAnswer) {
                 buttonClass += `border-gray-200 bg-white text-gray-700 hover:border-blue-300 hover:bg-blue-50 hover:shadow-md`;
+              } else {
+                buttonClass += `border-gray-200 bg-white text-gray-700`; // no hover if already answered
               }
 
               return (
@@ -59,6 +64,7 @@ function Questions() {
                   key={index}
                   className={buttonClass}
                   onClick={() => handleOptionClick(index)}
+                  disabled={!!currentAnswer} // disable button if answered
                 >
                   <div className="flex items-center justify-between">
                     <span className="text-lg">{option}</span>
