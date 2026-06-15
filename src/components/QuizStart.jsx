@@ -1,112 +1,164 @@
-import React from 'react'
-import { BookOpen, Clock, Trophy,Play } from "lucide-react"
-import { useDispatch } from 'react-redux'
-import { startQuiz } from '../store/quizSlice';
+import React, { useState } from "react";
+import { Sparkles, BookOpen, Loader2 } from "lucide-react";
+import { useDispatch } from "react-redux";
+import { setQuestions, startQuiz } from "../store/quizSlice";
 
-function QuizStart () {
-    const dispatch=useDispatch();
-    const handleStartQuiz=()=>{
-        dispatch(startQuiz());
-    };
+function QuizStart() {
+  const dispatch = useDispatch();
 
-    return (
-        <div className='max-w-4xl mx-auto'>
-            <div className='bg-white rounded-2xl shadow-xl p-8 text-center'>
-                <div className='mb-8'>
-                    <div className='inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-blue-100 to-purple-100 rounded-full mb-6'>
-                        <BookOpen className=' w-12 h-12' />
-                    </div>
-                    <h1 className='text-4xl font-bold text-gray-800 mb-4'>
-                        Aptitude Mastery Quiz
-                    </h1>
-                    <p className='text-xl text-gray-600 mb-8 max-w-2xl mx-auto'>
-                         Test your logical reasoning, math skills, and problem-solving ability with this quick aptitude quiz.
-                    </p>
-                </div>
-                {/* cards */}
-                <div className='md:grid md:grid-cols-3 md: gap-6 space-y-2 mb-8'>
-                    <div className='bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl '>
-                        <div className='flex items-center justify-center mb-4'>
-                            <BookOpen className='w-8 h-8 text-blue' />
-                        </div>
-                        <div className='text-2xl font-bold text-blue-800 mb-2'>10</div>
-                        <div className='text-2xl font-medium'>Questions</div>
-                    </div>
-                    <div className='bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-xl '>
-                        <div className='flex items-center justify-center mb-4'>
-                            <Clock className='w-8 h-8 text-blue' />
-                        </div>
-                        <div className='text-2xl font-bold text-purple-800 mb-2'>5:00</div>
-                        <div className='text-2xl font-medium'>Minutes</div>
-                    </div>
-                    <div className='bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-xl '>
-                        <div className='flex items-center justify-center mb-4'>
-                            <Trophy className='w-8 h-8 text-blue' />
-                        </div>
-                        <div className='text-2xl font-bold text-green-800 mb-2'>100%</div>
-                        <div className='text-2xl font-medium'>Max Score</div>
-                    </div>
+  const [topic, setTopic] = useState("");
+  const [difficulty, setDifficulty] = useState("Medium");
+  const [count, setCount] = useState(10);
+  const [loading, setLoading] = useState(false);
 
-                </div>
-                {/* Rules */}
-                <div className='mb-8'>
-                    <h3 className='text-xl font-semibold text-gray-800 mb-4'>
-                        Quiz Rules
-                    </h3>
-                    <div className='text-left bg-gray-50  p-6 rounded-xl max-w-2xl mx-auto'>
-                        <ul className='space-y-3 text-gray-700'>
-                            <li className='flex items-start'>
-                                <span className='flex-shrink-0 w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-sm font-semibold mx-3 mt-0.5'>1</span>
+  const handleGenerateQuiz = async () => {
+    if (!topic.trim()) {
+      alert("Please enter a topic");
+      return;
+    }
 
-                                <span>
-                                    Each question has multiple choice answer.
-                                </span>
+    try {
+      setLoading(true);
 
-                            </li>
-                            <li className='flex items-start'>
-                                <span className='flex-shrink-0 w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-sm font-semibold mx-3 mt-0.5'>2</span>
+      const response = await fetch(
+        "http://localhost:8000/generate-quiz",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            topic,
+            difficulty,
+            count,
+          }),
+        }
+      );
 
-                                <span>
-                                    You have 5 minutes to complete all questions.
-                                </span>
+      const data = await response.json();
 
-                            </li>
-                            <li className='flex items-start'>
-                                <span className='flex-shrink-0 w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-sm font-semibold mx-3 mt-0.5'>3</span>
+      if (!response.ok) {
+        throw new Error(data.message || "Failed to generate quiz");
+      }
 
-                                <span>
-                                    Once you select an answer, you'll see the explanation.
-                                </span>
+      console.log("Generated Questions:", data);
 
-                            </li>
-                            <li className='flex items-start'>
-                                <span className='flex-shrink-0 w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-sm font-semibold mx-3 mt-0.5'>4</span>
+      dispatch(setQuestions(data));
+      dispatch(startQuiz());
 
-                                <span>
-                                    You can navigate back to previous questions.
-                                </span>
+    } catch (error) {
+      console.error(error);
+      alert(error.message || "Failed to generate quiz");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-                            </li>
-                           
-                        </ul>
-                    </div>
-                </div>
+  return (
+    <div className="max-w-4xl mx-auto">
+      <div className="bg-white rounded-3xl shadow-xl p-8">
 
-                <button className='inline-flex items-center space-x-3 py-4 px-8 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-2xl hover:from-blue-600 hover:to-purple-700  transition-all   shadow-lg font-semibold cursor-pointer  ease-in' onClick={handleStartQuiz}>
-                    <Play size={24} />
-                    <span>Start Quiz</span>
+        {/* Header */}
+        <div className="text-center mb-10">
+          <div className="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-blue-100 to-purple-100 rounded-full mb-6">
+            <Sparkles className="w-12 h-12 text-purple-600" />
+          </div>
 
-                </button>
+          <h1 className="text-4xl font-bold text-gray-800 mb-4">
+            QuizWhiz AI
+          </h1>
 
-            </div>
-
-
+          <p className="text-lg text-gray-600">
+            Generate AI-powered quizzes on any topic instantly
+          </p>
         </div>
-    )
+
+        {/* Topic */}
+        <div className="mb-6">
+          <label className="block text-gray-700 font-semibold mb-2">
+            Topic
+          </label>
+
+          <input
+            type="text"
+            placeholder="Operating Systems, React, DBMS..."
+            value={topic}
+            onChange={(e) => setTopic(e.target.value)}
+            className="w-full border border-gray-300 rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+
+        {/* Difficulty */}
+        <div className="mb-6">
+          <label className="block text-gray-700 font-semibold mb-2">
+            Difficulty
+          </label>
+
+          <select
+            value={difficulty}
+            onChange={(e) => setDifficulty(e.target.value)}
+            className="w-full border border-gray-300 rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="Easy">Easy</option>
+            <option value="Medium">Medium</option>
+            <option value="Hard">Hard</option>
+          </select>
+        </div>
+
+        {/* Number of Questions */}
+        <div className="mb-8">
+          <label className="block text-gray-700 font-semibold mb-2">
+            Number of Questions
+          </label>
+
+          <select
+            value={count}
+            onChange={(e) => setCount(Number(e.target.value))}
+            className="w-full border border-gray-300 rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value={5}>5 Questions</option>
+            <option value={10}>10 Questions</option>
+            <option value={15}>15 Questions</option>
+            <option value={20}>20 Questions</option>
+          </select>
+        </div>
+
+        {/* Features */}
+        <div className="grid md:grid-cols-3 gap-4 mb-8">
+          <div className="bg-blue-50 p-4 rounded-xl text-center">
+            <BookOpen className="mx-auto mb-2 text-blue-600" />
+            <p className="font-semibold">AI Generated</p>
+          </div>
+
+          <div className="bg-purple-50 p-4 rounded-xl text-center">
+            <Sparkles className="mx-auto mb-2 text-purple-600" />
+            <p className="font-semibold">Custom Difficulty</p>
+          </div>
+
+          <div className="bg-green-50 p-4 rounded-xl text-center">
+            <p className="text-2xl font-bold text-green-600">⚡</p>
+            <p className="font-semibold">Instant Results</p>
+          </div>
+        </div>
+
+        {/* Generate Button */}
+        <button
+          onClick={handleGenerateQuiz}
+          disabled={loading}
+          className="w-full py-4 rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold text-lg hover:from-blue-600 hover:to-purple-700 disabled:opacity-60"
+        >
+          {loading ? (
+            <span className="flex justify-center items-center gap-2">
+              <Loader2 className="animate-spin" size={20} />
+              Generating Quiz...
+            </span>
+          ) : (
+            "Generate Quiz"
+          )}
+        </button>
+      </div>
+    </div>
+  );
 }
 
-export default QuizStart
-
-
-
-
+export default QuizStart;
