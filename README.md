@@ -1,119 +1,77 @@
-# QuizWhiz
+# QuizWhiz AI
 
-QuizWhiz is a fast, interactive, and responsive quiz application built using React.js, Redux Toolkit, Tailwind CSS, and Vite. The application provides a seamless quiz experience with real-time answer tracking, progress monitoring, timer functionality, and instant result computation. The project is deployed using GitHub Pages for easy public access and testing.
+QuizWhiz AI is a full-stack AI-powered quiz generation platform that creates interactive quizzes on any topic using Google's Gemini AI. Users can generate customized quizzes by selecting a topic, difficulty level, and number of questions, then receive instant feedback, explanations, and performance tracking in a responsive user interface.
 
 ## Live Demo
 
-**Live Preview:** https://khushiagg3404.github.io/QuizWhiz/
+🔗 Live Preview: https://quizzzwhiz.netlify.app/
 
-**GitHub Repository:** https://github.com/KhushiAgg3404/QuizWhiz
+
+🔗 GitHub Repository: https://github.com/KhushiAgg3404/QuizWhiz
 
 ---
 
-## Features
+## Key Features
 
-* Interactive multiple-choice quiz experience
-* Real-time answer tracking using Redux Toolkit
-* Dynamic question rendering from a centralized data source
-* Quiz timer for time-based assessments
-* Progress bar to track quiz completion
-* Instant score calculation and result display
-* Responsive design optimized for desktop, tablet, and mobile devices
-* Clean and modern UI built with Tailwind CSS
-* Modular and reusable React component architecture
-* Efficient global state management with Redux Toolkit
+* Generate quizzes on any topic using Google Gemini AI
+* Customizable difficulty levels (Easy, Medium, Hard)
+* Adjustable number of questions
+* AI-generated explanations for every answer
+* Real-time answer tracking and scoring
+* Interactive quiz timer
+* Progress tracking with visual progress bar
+* Responsive design for desktop, tablet, and mobile
+* Redux Toolkit powered state management
+* Deployed using Netlify and Render
 
 ---
 
 ## Tech Stack
 
+### Frontend
+
 * React.js
 * Redux Toolkit
 * Tailwind CSS
 * Vite
-* JavaScript (ES6+)
+* Lucide React
 
----
+### Backend
 
-## Project Structure
+* Node.js
+* Express.js
+* Google Gemini API
+* CORS
+* dotenv
 
-```bash
-src/
-├── assets/
-├── components/
-│   ├── ProgressBar.jsx
-│   ├── Questions.jsx
-│   ├── Quiz1.jsx
-│   ├── QuizStart.jsx
-│   ├── Result.jsx
-│   └── Timer.jsx
-├── data/
-│   └── questions.js
-├── store/
-│   ├── quizSlice.js
-│   └── store.js
-├── App.jsx
-├── main.jsx
-└── index.css
-```
+### Deployment
 
----
-
-## Key Functionalities
-
-### Quiz Start Screen
-
-* Displays quiz instructions and quiz details
-* Allows users to start the quiz
-
-### Dynamic Question Rendering
-
-* Loads and displays questions dynamically
-* Supports answer selection and navigation
-
-### State Management
-
-* Tracks user answers using Redux Toolkit
-* Maintains quiz progress across components
-
-### Progress Tracking
-
-* Displays a visual progress bar
-* Updates progress in real time
-
-### Timer Functionality
-
-* Countdown timer for quiz sessions
-* Enhances engagement and challenge
-
-### Result Computation
-
-* Calculates the final score instantly
-* Displays performance summary after quiz completion
+* Netlify
+* Render
 
 ---
 
 ## Learning Outcomes
 
-* Built scalable React applications using reusable components
-* Managed global state efficiently with Redux Toolkit
-* Implemented dynamic rendering and state-driven UI updates
-* Designed responsive user interfaces using Tailwind CSS
-* Structured applications using a modular architecture
-* Optimized development workflow with Vite
-* Deployed React applications using GitHub Pages
+* Built a full-stack AI-powered application
+* Integrated Google Gemini API for dynamic content generation
+* Implemented scalable state management using Redux Toolkit
+* Designed reusable React components
+* Built and consumed REST APIs
+* Managed environment variables securely
+* Deployed frontend and backend independently
+* Worked with structured AI-generated JSON responses
 
 ---
 
 ## Future Enhancements
 
-* Multiple quiz categories
-* Difficulty levels
-* Leaderboard system
-* User authentication
-* Question randomization
-* Quiz history and score tracking
-* Dark mode support
+* Generate quizzes from uploaded PDF notes
+* User authentication and quiz history
+* Personalized learning analytics
+* Topic recommendations
+* Export quiz results as PDF
+* Performance dashboard
 
 ---
 
