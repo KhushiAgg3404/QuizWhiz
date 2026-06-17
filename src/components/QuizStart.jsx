@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Sparkles, BookOpen, Loader2 } from "lucide-react";
 import { useDispatch } from "react-redux";
 import { setQuestions, startQuiz } from "../store/quizSlice";
+import { toast } from "react-toastify";
 
 function QuizStart() {
     const dispatch = useDispatch();
@@ -20,6 +21,10 @@ function QuizStart() {
         try {
             setLoading(true);
 
+            const toastId = toast.loading(
+                "Generating AI-powered quiz... This may take a few seconds."
+            );
+
 
             const response = await fetch(
                 `${import.meta.env.VITE_API_URL}/generate-quiz`, {
@@ -36,6 +41,12 @@ function QuizStart() {
             );
 
             const data = await response.json();
+            toast.update(toastId, {
+                render: "Quiz generated successfully! 🎉",
+                type: "success",
+                isLoading: false,
+                autoClose: 2000,
+            });
 
             if (!response.ok) {
                 throw new Error(data.message || "Failed to generate quiz");
@@ -49,6 +60,12 @@ function QuizStart() {
         } catch (error) {
             console.error(error);
             alert(error.message || "Failed to generate quiz");
+            toast.update(toastId, {
+                render: "Failed to generate quiz ❌",
+                type: "error",
+                isLoading: false,
+                autoClose: 3000,
+            });
         } finally {
             setLoading(false);
         }
