@@ -9,7 +9,7 @@ createRoot(document.getElementById('root')).render(
   <>
     <App />
     <ToastContainer
-      position="top-center"
+      position="top-right"
       theme="colored"
       newestOnTop
       autoClose={3000}
