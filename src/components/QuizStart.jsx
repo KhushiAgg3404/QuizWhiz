@@ -81,7 +81,7 @@ function QuizStart() {
 
                     <input
                         type="text"
-                        placeholder="Operating Systems, React, DBMS..."
+                        placeholder="Type a topic to generate a quiz"
                         value={topic}
                         onChange={(e) => setTopic(e.target.value)}
                         className="w-full border border-gray-300 rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
