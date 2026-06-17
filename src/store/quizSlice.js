@@ -24,7 +24,6 @@ const quizSlice = createSlice({
             state.answers = [];
             state.isQuizCompleted = false;
             state.score = 0;
-            state.timeLeft = 300;
             state.isTimerActive = true;
             state.showExplanation = false;
         },
@@ -67,6 +66,9 @@ const quizSlice = createSlice({
                 state.isTimerActive = false;
             }
         },
+        setTimer: (state, action) => {
+            state.timeLeft = action.payload;
+        },
 
 
         nextQuestion: (state) => {
@@ -104,6 +106,7 @@ const quizSlice = createSlice({
 
 export const {
     setQuestions,
+    setTimer,
     startQuiz,
     decrementTimer,
     answerQuestions,

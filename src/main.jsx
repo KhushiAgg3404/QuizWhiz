@@ -8,7 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 createRoot(document.getElementById('root')).render(
   <>
     <App />
-    <ToastContainer />
+    <ToastContainer position="top-right" />
 
   </>
 
