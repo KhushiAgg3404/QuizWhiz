@@ -83,127 +83,179 @@ function QuizStart() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto">
-      <div className="bg-white rounded-3xl shadow-xl p-8">
-
-        {/* Header */}
-        <div className="text-center mb-10">
-          <div className="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-blue-100 to-purple-100 rounded-full mb-6">
-            <Sparkles className="w-12 h-12 text-purple-600" />
-          </div>
-
-          <h1 className="text-4xl font-bold text-gray-800 mb-4">
+    <div className="max-w-6xl mx-auto px-4 py-10">
+      {/* Header */}
+      <div className="mb-10">
+        <div className="flex items-center gap-3 mb-3">
+          <h1 className="text-4xl font-bold text-gray-900">
             QuizWhiz AI
           </h1>
 
-          <p className="text-lg text-gray-600">
-            Generate AI-powered quizzes on any topic instantly
-          </p>
+          
         </div>
 
-        {/* Topic */}
-        <div className="mb-6">
-          <label className="block text-gray-700 font-semibold mb-2">
-            Topic
-          </label>
+        <p className="text-gray-500 text-lg">
+          Generate customized quizzes on any topic with AI-powered question generation.
+        </p>
+      </div>
 
-          <input
-            type="text"
-            placeholder="Enter a topic (e.g. Science, History, Technology)"
-            value={topic}
-            onChange={(e) => setTopic(e.target.value)}
-            className="w-full border border-gray-300 rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
+      <div className="grid lg:grid-cols-3 gap-8">
+        {/* LEFT SIDE */}
+        <div className="lg:col-span-2">
+          <div className="bg-white border border-gray-200 rounded-2xl p-8">
 
-        {/* Difficulty */}
-        <div className="mb-6">
-          <label className="block text-gray-700 font-semibold mb-2">
-            Difficulty
-          </label>
+            {/* Topic */}
+            <div className="mb-6">
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                Topic
+              </label>
 
-          <select
-            value={difficulty}
-            onChange={(e) => setDifficulty(e.target.value)}
-            className="w-full border border-gray-300 rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            <option value="Easy">Easy</option>
-            <option value="Medium">Medium</option>
-            <option value="Hard">Hard</option>
-          </select>
-        </div>
+              <input
+                type="text"
+                placeholder="Enter a topic (e.g. Science, History, Technology)"
+                value={topic}
+                onChange={(e) => setTopic(e.target.value)}
+                className="w-full border border-gray-300 rounded-xl p-4 focus:ring-2 focus:ring-black focus:outline-none"
+              />
 
-        {/* Number of Questions */}
-        <div className="mb-6">
-          <label className="block text-gray-700 font-semibold mb-2">
-            Number of Questions
-          </label>
+              
+            </div>
 
-          <select
-            value={count}
-            onChange={(e) => setCount(Number(e.target.value))}
-            className="w-full border border-gray-300 rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            <option value={5}>5 Questions</option>
-            <option value={10}>10 Questions</option>
-            <option value={15}>15 Questions</option>
-            <option value={20}>20 Questions</option>
-          </select>
-        </div>
+            {/* Difficulty + Questions */}
+            <div className="grid md:grid-cols-2 gap-5 mb-6">
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  Difficulty
+                </label>
 
-        {/* Timer */}
-        <div className="mb-8">
-          <label className="block text-gray-700 font-semibold mb-2">
-            Timer Duration
-          </label>
+                <select
+                  value={difficulty}
+                  onChange={(e) => setDifficulty(e.target.value)}
+                  className="w-full border border-gray-300 rounded-xl p-4 focus:ring-2 focus:ring-black focus:outline-none"
+                >
+                  <option>Easy</option>
+                  <option>Medium</option>
+                  <option>Hard</option>
+                </select>
+              </div>
 
-          <select
-            value={timer}
-            onChange={(e) => setTimerValue(Number(e.target.value))}
-            className="w-full border border-gray-300 rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            <option value={60}>1 Minute</option>
-            <option value={180}>3 Minutes</option>
-            <option value={300}>5 Minutes</option>
-            <option value={600}>10 Minutes</option>
-            <option value={900}>15 Minutes</option>
-          </select>
-        </div>
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  Questions
+                </label>
 
-        {/* Features */}
-        <div className="grid md:grid-cols-3 gap-4 mb-8">
-          <div className="bg-blue-50 p-4 rounded-xl text-center">
-            <BookOpen className="mx-auto mb-2 text-blue-600" />
-            <p className="font-semibold">AI Generated</p>
+                <select
+                  value={count}
+                  onChange={(e) => setCount(Number(e.target.value))}
+                  className="w-full border border-gray-300 rounded-xl p-4 focus:ring-2 focus:ring-black focus:outline-none"
+                >
+                  <option value={5}>5</option>
+                  <option value={10}>10</option>
+                  <option value={15}>15</option>
+                  <option value={20}>20</option>
+                </select>
+              </div>
+            </div>
+
+            {/* Timer */}
+            <div className="mb-8">
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                Timer
+              </label>
+
+              <select
+                value={timer}
+                onChange={(e) => setTimerValue(Number(e.target.value))}
+                className="w-full border border-gray-300 rounded-xl p-4 focus:ring-2 focus:ring-black focus:outline-none"
+              >
+                <option value={60}>1 Minute</option>
+                <option value={180}>3 Minutes</option>
+                <option value={300}>5 Minutes</option>
+                <option value={600}>10 Minutes</option>
+                <option value={900}>15 Minutes</option>
+              </select>
+            </div>
+
+            {/* Generate Button */}
+            <button
+              onClick={handleGenerateQuiz}
+              disabled={loading}
+              className="w-full bg-black text-white py-4 rounded-xl font-semibold hover:bg-gray-900 transition disabled:opacity-60"
+            >
+              {loading ? (
+                <span className="flex items-center justify-center gap-2">
+                  <Loader2 size={20} className="animate-spin" />
+                  Generating Quiz...
+                </span>
+              ) : (
+                "Generate Quiz"
+              )}
+            </button>
           </div>
-
-          <div className="bg-purple-50 p-4 rounded-xl text-center">
-            <Sparkles className="mx-auto mb-2 text-purple-600" />
-            <p className="font-semibold">Custom Difficulty</p>
-          </div>
-
-          <div className="bg-green-50 p-4 rounded-xl text-center">
-            <p className="text-2xl font-bold text-green-600">⚡</p>
-            <p className="font-semibold">Instant Results</p>
-          </div>
         </div>
 
-        {/* Generate Button */}
-        <button
-          onClick={handleGenerateQuiz}
-          disabled={loading}
-          className="w-full py-4 rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold text-lg hover:from-blue-600 hover:to-purple-700 disabled:opacity-60"
-        >
-          {loading ? (
-            <span className="flex justify-center items-center gap-2">
-              <Loader2 className="animate-spin" size={20} />
-              Generating Quiz...
-            </span>
-          ) : (
-            "Generate Quiz"
-          )}
-        </button>
+        {/* RIGHT SIDE PANEL */}
+        <div>
+          <div className="bg-white border border-gray-200 rounded-2xl p-6 sticky top-6">
+            <h2 className="font-bold text-xl mb-5">
+              Quiz Summary
+            </h2>
 
+            <div className="space-y-4">
+              <div>
+                <p className="text-gray-500 text-sm">
+                  Topic
+                </p>
+                <p className="font-semibold">
+                  {topic || "Not Selected"}
+                </p>
+              </div>
+
+              <div>
+                <p className="text-gray-500 text-sm">
+                  Difficulty
+                </p>
+                <p className="font-semibold">
+                  {difficulty}
+                </p>
+              </div>
+
+              <div>
+                <p className="text-gray-500 text-sm">
+                  Questions
+                </p>
+                <p className="font-semibold">
+                  {count}
+                </p>
+              </div>
+
+              <div>
+                <p className="text-gray-500 text-sm">
+                  Duration
+                </p>
+                <p className="font-semibold">
+                  {timer / 60} minutes
+                </p>
+              </div>
+            </div>
+
+            <div className="border-t mt-6 pt-6">
+              <div className="flex flex-wrap gap-2">
+                <span className="px-3 py-1 bg-gray-100 rounded-full text-sm">
+                  AI Generated
+                </span>
+
+                <span className="px-3 py-1 bg-gray-100 rounded-full text-sm">
+                  Instant Feedback
+                </span>
+
+                <span className="px-3 py-1 bg-gray-100 rounded-full text-sm">
+                  Custom Timer
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
