@@ -69,7 +69,7 @@ function Quiz1() {
         {/* Header Card */}
         <div className="bg-white border border-gray-200 rounded-2xl p-6 mb-6">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
-            
+
             {/* Progress Section */}
             <div className="flex-1">
               <div className="flex items-center gap-3 mb-3">
@@ -85,19 +85,25 @@ function Quiz1() {
             </div>
 
             {/* Timer */}
-            <div className="bg-slate-100 border border-gray-200 rounded-xl px-6 py-4 min-w-[180px]">
-              <p className="text-xs text-gray-500 mb-1">
-                Remaining Time
+            <div className="bg-white border border-gray-200 rounded-2xl px-6 py-5 min-w-[220px]">
+              <p className="text-xs font-medium uppercase tracking-wider text-gray-500 mb-2">
+                Time Remaining
               </p>
 
-              <Timer />
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center text-lg">
+                  ⏱️
+                </div>
+
+                <Timer />
+              </div>
             </div>
           </div>
         </div>
 
         {/* Main Layout */}
         <div className="grid lg:grid-cols-4 gap-6">
-          
+
           {/* Questions Section */}
           <div className="lg:col-span-3">
             <Questions />
