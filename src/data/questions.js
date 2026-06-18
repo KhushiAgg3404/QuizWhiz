@@ -1,270 +1,73 @@
-import React from "react";
-import {
-  Award,
-  Clock,
-  RefreshCw,
-  Target,
-  Trophy,
-  CheckCircle,
-  XCircle,
-} from "lucide-react";
-import { useDispatch, useSelector } from "react-redux";
-import { resetQuiz } from "../store/quizSlice";
+export const sampleQuestions = [
+  {
+    id: 1,
+    question: "If 3x + 2 = 2x + 9, what is the value of 5x - 7?",
+    options: ["24", "30", "28", "35"],
+    correctAnswer: 2,
+    explanation: "3x + 2 = 2x + 9 ⇒ x = 7 ⇒ 5x - 7 = 35 - 7 = 28.",
+  },
+  {
+    id: 2,
+    question: "A sum of ₹5000 is invested at 10% simple interest per annum. What will be the interest after 3 years?",
+    options: ["₹1500", "₹1200", "₹1000", "₹1800"],
+    correctAnswer: 0,
+    explanation: "SI = (P×R×T)/100 = (5000×10×3)/100 = ₹1500.",
+  },
+  {
+    id: 3,
+    question: "What is the next number in the series: 7, 14, 28, 56, ?",
+    options: ["72", "98", "84", "112"],
+    correctAnswer: 3,
+    explanation: "Each term is multiplied by 2: 7×2=14, 14×2=28, etc. So, 56×2 = 112.",
+  },
+  {
+    id: 4,
+    question: "A train covers 360 km in 6 hours. What is the average speed?",
+    options: ["65 km/h", "55 km/h", "60 km/h", "50 km/h"],
+    correctAnswer: 2,
+    explanation: "Speed = Distance / Time = 360 / 6 = 60 km/h.",
+  },
+  {
+    id: 5,
+    question: "A and B together can complete a task in 10 days. A alone can do it in 15 days. How long will B take alone?",
+    options: ["20 days", "30 days", "25 days", "10 days"],
+    correctAnswer: 1,
+    explanation: "1/A = 1/15, 1/(A+B) = 1/10 ⇒ 1/B = 1/10 - 1/15 = (3 - 2)/30 = 1/30 ⇒ B takes 30 days.",
+  },
+  {
+    id: 6,
+    question: "If 40% of a number is 120, what is the number?",
+    options: ["280", "240", "300", "320"],
+    correctAnswer: 2,
+    explanation: "Let the number be x ⇒ 0.4x = 120 ⇒ x = 300.",
+  },
+  {
+    id: 7,
+    question: "In a class, the ratio of boys to girls is 5:4. If 20% of the girls leave and 10 new boys join, the new ratio becomes 3:2. Find the original number of girls.",
+    options: ["40", "36", "45", "48"],
+    correctAnswer: 0,
+    explanation: "Let girls = 4x ⇒ boys = 5x. New boys = 5x + 10; New girls = 0.8×4x = 3.2x ⇒ (5x + 10)/(3.2x) = 3/2 ⇒ x = 10 ⇒ girls = 40.",
+  }, 
+  {
+    id: 8,
+    question: "A man spends 80% of his income. If his income is ₹25,000, how much does he save?",
+    options: ["₹6000", "₹4500", "₹5000", "₹4000"],
+    correctAnswer: 2,
+    explanation: "Savings = 20% of ₹25,000 = ₹5000.",
+  },
+  {
+    id: 9,
+    question: "What is the LCM of 12 and 18?",
+    options: [ "48", "60", "72","36"],
+    correctAnswer: 3,
+    explanation: "LCM of 12 and 18 is the smallest number divisible by both: 36.",
+  },
+  {
+    id: 10,
+    question: "If the surface area of a cube is 150 cm², what is its volume?",
+    options: ["100 cm³", "125 cm³", "75 cm³", "64 cm³"],
+    correctAnswer: 1,
+    explanation: "Surface area = 6a² ⇒ a² = 25 ⇒ a = 5 ⇒ Volume = a³ = 125 cm³.",
+  },
+];
 
-function Result() {
-  const dispatch = useDispatch();
-
-  const {
-    score,
-    questions,
-    answers,
-    timeLeft,
-    timer,
-  } = useSelector((state) => state.quiz);
-
-  const totalQuestions = questions.length;
-  const percentage = Math.round((score / totalQuestions) * 100);
-
-  const totalTime = timer || 300;
-  const timeUsed = totalTime - timeLeft;
-
-  const minutesUsed = Math.floor(timeUsed / 60);
-  const secondsUsed = timeUsed % 60;
-
-  const handleReset = () => {
-    dispatch(resetQuiz());
-  };
-
-  const getPerformanceMessage = () => {
-    if (percentage >= 90) return "Outstanding Performance 🎉";
-    if (percentage >= 75) return "Great Job 👏";
-    if (percentage >= 50) return "Good Effort 👍";
-    return "Keep Practicing 💪";
-  };
-
-  const getPerformanceBadge = () => {
-    if (percentage >= 80)
-      return {
-        text: "Excellent",
-        style: "bg-green-100 text-green-700",
-      };
-
-    if (percentage >= 50)
-      return {
-        text: "Good Attempt",
-        style: "bg-yellow-100 text-yellow-700",
-      };
-
-    return {
-      text: "Needs Improvement",
-      style: "bg-red-100 text-red-700",
-    };
-  };
-
-  const badge = getPerformanceBadge();
-
-  return (
-    <div className="max-w-6xl mx-auto">
-      <div className="bg-white border border-gray-200 rounded-2xl p-8">
-
-        {/* HEADER */}
-        <div className="text-center mb-12">
-
-          {/* Score Circle */}
-          <div className="relative w-40 h-40 mx-auto mb-6">
-            <svg
-              className="w-40 h-40 -rotate-90"
-              viewBox="0 0 160 160"
-            >
-              <circle
-                cx="80"
-                cy="80"
-                r="65"
-                stroke="#e5e7eb"
-                strokeWidth="12"
-                fill="none"
-              />
-
-              <circle
-                cx="80"
-                cy="80"
-                r="65"
-                stroke={
-                  percentage >= 70
-                    ? "#22c55e"
-                    : percentage >= 50
-                    ? "#f59e0b"
-                    : "#ef4444"
-                }
-                strokeWidth="12"
-                fill="none"
-                strokeDasharray="408"
-                strokeDashoffset={
-                  408 - (408 * percentage) / 100
-                }
-                strokeLinecap="round"
-              />
-            </svg>
-
-            <div className="absolute inset-0 flex flex-col items-center justify-center">
-              <Trophy className="w-8 h-8 text-amber-500 mb-1" />
-
-              <span className="text-4xl font-bold text-gray-900">
-                {percentage}%
-              </span>
-
-              <span className="text-sm text-gray-500">
-                Score
-              </span>
-            </div>
-          </div>
-
-          <h1 className="text-5xl font-bold text-gray-900 mb-3">
-            Quiz Complete!
-          </h1>
-
-          <p className="text-xl text-gray-500 mb-4">
-            {getPerformanceMessage()}
-          </p>
-
-          <span
-            className={`inline-flex px-4 py-2 rounded-full text-sm font-medium ${badge.style}`}
-          >
-            {badge.text}
-          </span>
-        </div>
-
-        {/* STATS */}
-        <div className="grid md:grid-cols-3 gap-6 mb-12">
-
-          <div className="border border-gray-200 rounded-2xl p-6 hover:shadow-md transition">
-            <Target className="w-8 h-8 text-blue-600 mb-4" />
-
-            <div className="text-xs uppercase tracking-wider text-gray-500 mb-2">
-              Correct Answers
-            </div>
-
-            <div className="text-5xl font-bold text-gray-900">
-              {score}
-            </div>
-
-            <div className="text-gray-500 mt-2">
-              out of {totalQuestions}
-            </div>
-          </div>
-
-          <div className="border border-gray-200 rounded-2xl p-6 hover:shadow-md transition">
-            <Award className="w-8 h-8 text-purple-600 mb-4" />
-
-            <div className="text-xs uppercase tracking-wider text-gray-500 mb-2">
-              Accuracy
-            </div>
-
-            <div className="text-5xl font-bold text-gray-900">
-              {percentage}%
-            </div>
-
-            <div className="text-gray-500 mt-2">
-              Final Score
-            </div>
-          </div>
-
-          <div className="border border-gray-200 rounded-2xl p-6 hover:shadow-md transition">
-            <Clock className="w-8 h-8 text-green-600 mb-4" />
-
-            <div className="text-xs uppercase tracking-wider text-gray-500 mb-2">
-              Time Used
-            </div>
-
-            <div className="text-5xl font-bold text-gray-900">
-              {minutesUsed}:{String(secondsUsed).padStart(2, "0")}
-            </div>
-
-            <div className="text-gray-500 mt-2">
-              Quiz Duration
-            </div>
-          </div>
-        </div>
-
-        {/* REVIEW */}
-        <div className="mb-10">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">
-            Question Review
-          </h2>
-
-          <div className="space-y-3 max-h-[450px] overflow-y-auto">
-            {questions.map((question, index) => {
-              const answer = answers.find(
-                (a) => a.questionId === question.id
-              );
-
-              const isCorrect =
-                answer?.isCorrect ?? false;
-
-              return (
-                <div
-                  key={index}
-                  className={`flex items-center justify-between p-4 rounded-xl border ${
-                    isCorrect
-                      ? "border-green-200 bg-green-50"
-                      : "border-red-200 bg-red-50"
-                  }`}
-                >
-                  <div className="flex-1 text-left">
-                    <p className="font-semibold text-gray-900 mb-1">
-                      Question {index + 1}
-                    </p>
-
-                    <p className="text-sm text-gray-600">
-                      {question.question}
-                    </p>
-                  </div>
-
-                  {isCorrect ? (
-                    <div className="flex items-center gap-2 text-green-700 font-medium">
-                      <CheckCircle size={18} />
-                      Correct
-                    </div>
-                  ) : (
-                    <div className="flex items-center gap-2 text-red-700 font-medium">
-                      <XCircle size={18} />
-                      Incorrect
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* SUMMARY */}
-        <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 mb-8">
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">
-            Performance Summary
-          </h3>
-
-          <p className="text-gray-600 leading-relaxed">
-            You answered{" "}
-            <strong>{score}</strong> out of{" "}
-            <strong>{totalQuestions}</strong> questions
-            correctly and achieved an accuracy of{" "}
-            <strong>{percentage}%</strong>.
-          </p>
-        </div>
-
-        {/* BUTTON */}
-        <div className="text-center">
-          <button
-            onClick={handleReset}
-            className="inline-flex items-center gap-3 px-8 py-4 bg-black text-white rounded-xl hover:bg-gray-900 transition font-semibold"
-          >
-            <RefreshCw size={20} />
-            Take Quiz Again
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-export default Result;
