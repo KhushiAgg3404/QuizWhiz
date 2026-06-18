@@ -9,39 +9,30 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-console.log("Generating quiz...");
 
 const genAI = new GoogleGenerativeAI(
-    process.env.GEMINI_API_KEY
+  process.env.GEMINI_API_KEY
 );
-console.log("Quiz generated successfully");
-// 👇 ADD HERE
-async function listModels() {
-    try {
-        console.log(
-            "Using package version:",
-            require("@google/generative-ai/package.json").version
-        );
-    } catch (e) { }
-
-    console.log("API key loaded:", !!process.env.GEMINI_API_KEY);
-}
-
-listModels();
 
 app.get("/", (req, res) => {
-    res.send("Backend is running");
+  res.send("Backend is running");
 });
 
 app.post("/generate-quiz", async (req, res) => {
-    try {
-        const { topic, difficulty, count } = req.body;
+  try {
+    const { topic, difficulty, count } = req.body;
 
-        const model = genAI.getGenerativeModel({
-            model: "gemini-2.5-flash",
-        });
+    if (!topic) {
+      return res.status(400).json({
+        message: "Topic is required",
+      });
+    }
 
-        const prompt = `
+    const model = genAI.getGenerativeModel({
+      model: "gemini-2.5-flash",
+    });
+
+    const prompt = `
 Generate ${count} MCQ questions on ${topic}.
 
 Difficulty: ${difficulty}
@@ -49,51 +40,86 @@ Difficulty: ${difficulty}
 Return ONLY valid JSON.
 
 [
- {
-  "id":1,
-  "question":"Question",
-  "options":["A","B","C","D"],
-  "correctAnswer":0,
-  "explanation":"Explanation"
- }
+  {
+    "id": 1,
+    "question": "Question",
+    "options": ["A", "B", "C", "D"],
+    "correctAnswer": 0,
+    "explanation": "Explanation"
+  }
 ]
 `;
 
-        let result;
+    let result;
 
-        for (let i = 0; i < 5; i++) {
-            try {
-                result = await model.generateContent(prompt);
-                break;
-            } catch (err) {
-                console.log("Retry", i + 1);
+    for (let i = 0; i < 3; i++) {
+      try {
+        result = await model.generateContent(prompt);
+        break;
+      } catch (err) {
+        console.log(`Retry attempt ${i + 1}`);
 
-                if (i === 4) throw err;
+        const isQuotaError =
+          err.message?.includes("429") ||
+          err.message?.includes("quota") ||
+          err.message?.includes("Quota exceeded");
 
-                await new Promise(resolve =>
-                    setTimeout(resolve, 5000)
-                );
-            }
+        if (isQuotaError) {
+          throw err;
         }
 
-        const text = result.response.text();
+        if (i === 2) {
+          throw err;
+        }
 
-        const cleaned = text
-            .replace(/```json/g, "")
-            .replace(/```/g, "")
-            .trim();
-
-        const questions = JSON.parse(cleaned);
-
-        res.json(questions);
-
-    } catch (error) {
-        console.error("Gemini Error:", error);
-
-        res.status(500).json({
-            message: error.message,
-        });
+        await new Promise((resolve) =>
+          setTimeout(resolve, 3000)
+        );
+      }
     }
+
+    const text = result.response.text();
+
+    const cleaned = text
+      .replace(/```json/g, "")
+      .replace(/```/g, "")
+      .trim();
+
+    let questions;
+
+    try {
+      questions = JSON.parse(cleaned);
+    } catch (parseError) {
+      console.error("JSON Parse Error:", parseError);
+
+      return res.status(500).json({
+        message:
+          "AI returned an invalid quiz format. Please try again.",
+      });
+    }
+
+    res.json(questions);
+
+  } catch (error) {
+    console.error("Gemini Error:", error);
+
+    const isQuotaError =
+      error.message?.includes("429") ||
+      error.message?.includes("quota") ||
+      error.message?.includes("Quota exceeded");
+
+    if (isQuotaError) {
+      return res.status(429).json({
+        message:
+          "AI quiz limit reached. Please try again in a few minutes.",
+      });
+    }
+
+    res.status(500).json({
+      message:
+        "Failed to generate quiz. Please try again later.",
+    });
+  }
 });
 
 const PORT = process.env.PORT || 8000;
