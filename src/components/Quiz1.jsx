@@ -76,10 +76,6 @@ function Quiz1() {
                 <h2 className="text-2xl font-bold text-gray-900">
                   Quiz In Progress
                 </h2>
-
-                <span className="px-3 py-1 text-xs font-medium bg-blue-100 text-blue-700 rounded-full">
-                  AI Quiz
-                </span>
               </div>
 
               <ProgressBar
