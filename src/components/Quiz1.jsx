@@ -91,10 +91,6 @@ function Quiz1() {
               </p>
 
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center text-lg">
-                  ⏱️
-                </div>
-
                 <Timer />
               </div>
             </div>
@@ -148,7 +144,7 @@ function Quiz1() {
                 </div>
               </div>
 
-              <div className="border-t mt-6 pt-6">
+              {/* <div className="border-t mt-6 pt-6">
                 <div className="flex flex-wrap gap-2">
                   <span className="px-3 py-1 text-xs bg-gray-100 rounded-full">
                     AI Generated
@@ -162,7 +158,7 @@ function Quiz1() {
                     Instant Results
                   </span>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
 
