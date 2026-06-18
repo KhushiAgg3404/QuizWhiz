@@ -32,18 +32,7 @@ function QuizStart() {
       setLoading(true);
 
       toastId = toast.loading(
-        "Generating AI-powered quiz...",
-        {
-          position: "top-center",
-          style: {
-            borderRadius: "16px",
-            background: "#111827",
-            color: "#fff",
-            fontSize: "15px",
-            fontWeight: "600",
-            padding: "14px 18px",
-          },
-        }
+        "Generating AI-powered quiz... This may take a few seconds."
       );
 
       const response = await fetch(
@@ -102,7 +91,7 @@ function QuizStart() {
             QuizWhiz AI
           </h1>
 
-
+          
         </div>
 
         <p className="text-gray-500 text-lg">
@@ -129,7 +118,7 @@ function QuizStart() {
                 className="w-full border border-gray-300 rounded-xl p-4 focus:ring-2 focus:ring-black focus:outline-none"
               />
 
-
+              
             </div>
 
             {/* Difficulty + Questions */}
@@ -250,7 +239,7 @@ function QuizStart() {
               </div>
             </div>
 
-
+            
           </div>
         </div>
       </div>

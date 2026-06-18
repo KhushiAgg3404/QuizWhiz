@@ -9,11 +9,14 @@ createRoot(document.getElementById('root')).render(
   <>
     <App />
     <ToastContainer
-      position="top-right"
-      theme="colored"
-      newestOnTop
-      autoClose={3000}
+      position="top-center"
+      theme="light"
+      toastStyle={{
+        borderRadius: "16px",
+        fontWeight: "600",
+      }}
     />
+    
 
   </>
 
