@@ -100,7 +100,7 @@ function Quiz1() {
         </div>
 
         {/* Main Layout */}
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-5xl mx-auto mt-6">
           <Questions />
         </div>
 
