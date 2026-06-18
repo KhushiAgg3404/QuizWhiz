@@ -105,62 +105,7 @@ function Quiz1() {
             <Questions />
           </div>
 
-          {/* Sidebar */}
-          <div>
-            <div className="bg-white border border-gray-200 rounded-2xl p-5 sticky top-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-5">
-                Quiz Status
-              </h3>
-
-              <div className="space-y-5">
-                <div>
-                  <p className="text-sm text-gray-500">
-                    Current Question
-                  </p>
-
-                  <p className="text-xl font-semibold text-gray-900">
-                    {currentQuestionIndex + 1} / {questions.length}
-                  </p>
-                </div>
-
-                <div>
-                  <p className="text-sm text-gray-500">
-                    Answered
-                  </p>
-
-                  <p className="text-xl font-semibold text-green-600">
-                    {answers.length}
-                  </p>
-                </div>
-
-                <div>
-                  <p className="text-sm text-gray-500">
-                    Remaining
-                  </p>
-
-                  <p className="text-xl font-semibold text-orange-600">
-                    {questions.length - answers.length}
-                  </p>
-                </div>
-              </div>
-
-              {/* <div className="border-t mt-6 pt-6">
-                <div className="flex flex-wrap gap-2">
-                  <span className="px-3 py-1 text-xs bg-gray-100 rounded-full">
-                    AI Generated
-                  </span>
-
-                  <span className="px-3 py-1 text-xs bg-gray-100 rounded-full">
-                    Timed Quiz
-                  </span>
-
-                  <span className="px-3 py-1 text-xs bg-gray-100 rounded-full">
-                    Instant Results
-                  </span>
-                </div>
-              </div> */}
-            </div>
-          </div>
+          
 
         </div>
       </div>
