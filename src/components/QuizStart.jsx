@@ -19,10 +19,16 @@ function QuizStart() {
 
   // Timer in seconds
   const [timer, setTimerValue] = useState(300);
-
   const handleGenerateQuiz = async () => {
     if (!topic.trim()) {
-      toast.warning("Please enter a topic");
+      toast.warning("Please enter a topic", {
+        style: {
+          background: "#fffbeb",
+          color: "#92400e",
+          border: "1px solid #fcd34d",
+          borderRadius: "12px",
+        },
+      });
       return;
     }
 
@@ -32,7 +38,15 @@ function QuizStart() {
       setLoading(true);
 
       toastId = toast.loading(
-        "Generating AI-powered quiz... This may take a few seconds."
+        "Generating AI-powered quiz... This may take a few seconds.",
+        {
+          style: {
+            background: "#111827",
+            color: "#ffffff",
+            border: "1px solid #374151",
+            borderRadius: "12px",
+          },
+        }
       );
 
       const response = await fetch(
@@ -61,6 +75,12 @@ function QuizStart() {
         type: "success",
         isLoading: false,
         autoClose: 2000,
+        style: {
+          background: "#ecfdf5",
+          color: "#166534",
+          border: "1px solid #86efac",
+          borderRadius: "12px",
+        },
       });
 
       dispatch(setQuestions(data));
@@ -75,6 +95,12 @@ function QuizStart() {
         type: "error",
         isLoading: false,
         autoClose: 3000,
+        style: {
+          background: "#fef2f2",
+          color: "#991b1b",
+          border: "1px solid #fca5a5",
+          borderRadius: "12px",
+        },
       });
 
     } finally {
@@ -91,7 +117,7 @@ function QuizStart() {
             QuizWhiz AI
           </h1>
 
-          
+
         </div>
 
         <p className="text-gray-500 text-lg">
@@ -118,7 +144,7 @@ function QuizStart() {
                 className="w-full border border-gray-300 rounded-xl p-4 focus:ring-2 focus:ring-black focus:outline-none"
               />
 
-              
+
             </div>
 
             {/* Difficulty + Questions */}
@@ -239,7 +265,7 @@ function QuizStart() {
               </div>
             </div>
 
-            
+
           </div>
         </div>
       </div>

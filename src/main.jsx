@@ -12,11 +12,11 @@ createRoot(document.getElementById('root')).render(
       position="top-center"
       theme="light"
       toastStyle={{
-        borderRadius: "16px",
-        fontWeight: "600",
+        fontWeight: 500,
+        padding: "12px",
       }}
     />
-    
+
 
   </>
 
