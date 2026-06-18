@@ -239,7 +239,7 @@ function QuizStart() {
               </div>
             </div>
 
-            <div className="border-t mt-6 pt-6">
+            {/* <div className="border-t mt-6 pt-6">
               <div className="flex flex-wrap gap-2">
                 <span className="px-3 py-1 bg-gray-100 rounded-full text-sm">
                   AI Generated
@@ -253,7 +253,7 @@ function QuizStart() {
                   Custom Timer
                 </span>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
