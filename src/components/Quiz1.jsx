@@ -76,6 +76,10 @@ function Quiz1() {
                 <h2 className="text-2xl font-bold text-gray-900">
                   Quiz In Progress
                 </h2>
+
+                <span className="px-3 py-1 text-xs font-medium bg-blue-100 text-blue-700 rounded-full">
+                  AI Quiz
+                </span>
               </div>
 
               <ProgressBar
@@ -85,29 +89,22 @@ function Quiz1() {
             </div>
 
             {/* Timer */}
-            <div className="bg-white border border-gray-200 rounded-2xl px-6 py-5 min-w-[220px]">
-              <p className="text-xs font-medium uppercase tracking-wider text-gray-500 mb-2">
-                Time Remaining
+            <div className="bg-slate-100 border border-gray-200 rounded-xl px-6 py-4 min-w-[180px]">
+              <p className="text-xs text-gray-500 mb-1">
+                Remaining Time
               </p>
 
-              <div className="flex items-center gap-3">
-                <Timer />
-              </div>
+              <Timer />
             </div>
           </div>
         </div>
 
         {/* Main Layout */}
-        <div className="grid lg:grid-cols-4 gap-6">
-
-          {/* Questions Section */}
-          <div className="lg:col-span-3">
-            <Questions />
-          </div>
-
-          
-
+        <div className="max-w-4xl mx-auto">
+          <Questions />
         </div>
+
+
       </div>
     </div>
   );
