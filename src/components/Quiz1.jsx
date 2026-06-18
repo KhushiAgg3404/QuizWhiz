@@ -98,11 +98,8 @@ function Quiz1() {
         </div>
 
         {/* Main Layout */}
-        {/* Questions Section */}
         <div className="mt-6">
-          <div className="bg-white border border-gray-200 rounded-2xl p-8">
-            <Questions />
-          </div>
+          <Questions />
         </div>
 
 
