@@ -77,9 +77,7 @@ function Quiz1() {
                   Quiz In Progress
                 </h2>
 
-                <span className="px-3 py-1 text-xs font-medium bg-blue-100 text-blue-700 rounded-full">
-                  AI Quiz
-                </span>
+
               </div>
 
               <ProgressBar
@@ -100,8 +98,11 @@ function Quiz1() {
         </div>
 
         {/* Main Layout */}
+        {/* Questions Section */}
         <div className="mt-6">
-          <Questions />
+          <div className="bg-white border border-gray-200 rounded-2xl p-8">
+            <Questions />
+          </div>
         </div>
 
 
